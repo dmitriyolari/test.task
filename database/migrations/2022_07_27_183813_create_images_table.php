@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('disk')->nullable()->default('public');
             $table->string('alt')->nullable();
             $table->string('title')->nullable();
-            $table->string('scope')->nullable();
+            $table->index('scope')->nullable();
         });
     }
 
