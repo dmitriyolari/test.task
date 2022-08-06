@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('code')->unique();
-            $table->boolean('display_on_home')->nullable()->default(0);
+            $table->boolean('display_on_home')->default(0);
             $table->string('banner_title')->nullable();
             $table->string('banner_description')->nullable();
         });

@@ -20,10 +20,12 @@ return new class extends Migration
             $table->string('filename');
             $table->string('path');
             $table->boolean('from_url')->nullable()->default(0);
-            $table->string('disk')->nullable()->default('public');
+            $table->string('disk')->default('public');
             $table->string('alt')->nullable();
             $table->string('title')->nullable();
-            $table->index('scope')->nullable();
+            $table->string('scope')->nullable();
+
+            $table->index('scope');
         });
     }
 
