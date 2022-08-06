@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Image extends Model
 {
@@ -20,4 +22,31 @@ class Image extends Model
         'title',
         'scope'
     ];
+
+    public function getUrlAttribute(): ?string
+    {
+        return Storage::disk($this->disk)->get("$this->path/$this->filename");
+    }
+
+    /**
+     * Scope a query to group personal images.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopePersonalScope(Builder $query): Builder
+    {
+        return $query->where('scope', '=', 'personal');
+    }
+
+    /**
+     * Scope a query to group personal images.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopePublicScope(Builder $query): Builder
+    {
+        return $query->where('scope', '=', 'public');
+    }
 }
