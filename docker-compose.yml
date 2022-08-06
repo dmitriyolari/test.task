@@ -17,13 +17,13 @@ services:
       - test_task
 
   db:
-    image: postgres:13.3
+    image: mysql:8.0
     container_name: test_task-db
     restart: unless-stopped
     environment:
-      POSTGRES_DATABASE: ${DB_DATABASE}
-      POSTGRES_ROOT_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
