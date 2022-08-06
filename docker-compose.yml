@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: sammy
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: test_task
+    container_name: test_task-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - test_task
+
+  db:
+    image: postgres:13.3
+    container_name: test_task-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DATABASE: ${DB_DATABASE}
+      POSTGRES_ROOT_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - test_task
+
+  nginx:
+    image: nginx:alpine
+    container_name: test_task-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d
+    networks:
+      - test_task
+
+networks:
+  test_task:
+    driver: bridge
