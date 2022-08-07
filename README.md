@@ -5,4 +5,3 @@ In order to work with it you need to be installed PHP>=8.0 and MySQL
 2. Run: `php artisan migrate`
 3. Then open your terminal and run command: `cp .env.example .env`
 4. Use factory for populating DB with testing data
-Test commit
