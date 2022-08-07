@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BrandRequest;
 use App\Http\Resources\BrandCollection;
+use App\Http\Resources\BrandResource;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 
@@ -39,12 +40,12 @@ class BrandController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Brand $brand
+     * @return BrandResource
      */
-    public function show($id)
+    public function show(Brand $brand): BrandResource
     {
-        //
+        return new BrandResource($brand);
     }
 
     /**
