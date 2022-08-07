@@ -4,12 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BrandRequest;
 use App\Http\Resources\BrandCollection;
-use App\Http\Resources\BrandResource;
 use App\Models\Brand;
-use Exception;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class BrandController extends Controller
 {
@@ -23,13 +19,13 @@ class BrandController extends Controller
         return new BrandCollection(Brand::all());
     }
 
-//    /**
-//     * Store a newly created resource in storage.
-//     *
-//     * @param BrandRequest $request
-//     * @return BrandResource
-//     */
-    public function store(BrandRequest $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param BrandRequest $request
+     * @return string
+     */
+    public function store(BrandRequest $request): string
     {
         $validatedDataRequest = $request->validated();
 
