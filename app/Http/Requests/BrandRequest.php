@@ -23,13 +23,21 @@ class BrandRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'title' => ['required', 'string'],
             'code' => ['required', 'string', 'unique:brands,code'],
             'display_on_home' => ['boolean'],
             'banner_title' => ['string'],
             'banner_description' => ['string']
         ];
+        if ($this->method() === 'PUT') {
+            $putRules = [
+                'code' => ['required', 'string']
+            ];
+            $rules = array_merge($rules, $putRules);
+        }
+
+        return $rules;
     }
 
     /**

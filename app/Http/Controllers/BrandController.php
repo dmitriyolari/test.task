@@ -6,7 +6,6 @@ use App\Http\Requests\BrandRequest;
 use App\Http\Resources\BrandCollection;
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
-use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
@@ -51,13 +50,17 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param BrandRequest $request
+     * @param Brand $brand
+     * @return string
      */
-    public function update(Request $request, $id)
+    public function update(BrandRequest $request, Brand $brand): string
     {
-        //
+        if ($brand->update($request->validated())) {
+            return 'Brand was successfully modified!';
+        }
+
+        return 'Something went wrong. Please try again.';
     }
 
     /**
