@@ -68,8 +68,11 @@ class BrandController extends Controller
      */
     public function destroy(int $id): string
     {
-        if (Brand::destroy($id)) {
-            return response()->json('Brand was successfully removed');
+        $brand = Brand::findOrFail($id);
+        if ($brand->delete()) {
+            return 'Brand was successfully removed';
         }
+
+        return 'Something went wrong. Please try again.';
     }
 }
