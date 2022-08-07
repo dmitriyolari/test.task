@@ -43,11 +43,4 @@ class BrandRequest extends FormRequest
             'banner_description' => $this->bannerDescription
         ]);
     }
-
-    public function messages()
-    {
-        return [
-            'code.unique:brands,code' => 'fdsfd'
-        ];
-    }
 }
