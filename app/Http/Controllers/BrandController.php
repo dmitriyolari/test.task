@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BrandRequest;
+use App\Http\Requests\Brand\CreateBrandRequest;
+use App\Http\Requests\Brand\UpdateBrandRequest;
 use App\Http\Resources\BrandCollection;
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
@@ -22,18 +23,21 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param BrandRequest $request
+     * @param CreateBrandRequest $request
      * @return string
      */
-    public function store(BrandRequest $request): string
+    public function store(CreateBrandRequest $request): string
     {
         $validatedDataRequest = $request->validated();
-
-        if (Brand::create($validatedDataRequest)) {
-            return 'Brand was successfully saved!';
+        $brand = Brand::create($validatedDataRequest);
+        if (!$brand) {
+            return 'An error occurred. Please try again later.';
+        }
+        if ($request->file('logo')) {
+            $brand->addMedia($request->file('logo'))->toMediaCollection('logo');
         }
 
-        return 'An error occurred. Please try again later.';
+        return 'Brand was successfully saved!';
     }
 
     /**
@@ -50,11 +54,11 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param BrandRequest $request
+     * @param UpdateBrandRequest $request
      * @param Brand $brand
      * @return string
      */
-    public function update(BrandRequest $request, Brand $brand): string
+    public function update(UpdateBrandRequest $request, Brand $brand): string
     {
         if ($brand->update($request->validated())) {
             return 'Brand was successfully modified!';

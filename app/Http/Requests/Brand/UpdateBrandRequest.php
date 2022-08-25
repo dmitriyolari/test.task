@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Brand;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BrandRequest extends FormRequest
+class UpdateBrandRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -21,23 +21,15 @@ class BrandRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(): array
+    public function rules()
     {
-        $rules = [
+        return [
             'title' => ['required', 'string'],
-            'code' => ['required', 'string', 'unique:brands,code'],
+            'code' => ['required', 'string'],
             'display_on_home' => ['boolean'],
             'banner_title' => ['string'],
             'banner_description' => ['string']
         ];
-        if ($this->method() === 'PUT') {
-            $putRules = [
-                'code' => ['required', 'string']
-            ];
-            $rules = array_merge($rules, $putRules);
-        }
-
-        return $rules;
     }
 
     /**
