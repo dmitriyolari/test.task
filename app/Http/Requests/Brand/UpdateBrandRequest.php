@@ -28,8 +28,9 @@ class UpdateBrandRequest extends FormRequest
             'code' => ['required', 'string'],
             'display_on_home' => ['boolean'],
             'banner_title' => ['string'],
-            'banner_description' => ['string']
-        ];
+            'banner_description' => ['string'],
+            'logo' => ['sometimes', 'image'],
+];
     }
 
     /**

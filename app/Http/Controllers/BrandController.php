@@ -27,11 +27,11 @@ class BrandController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateBrandRequest $request
-     * @return BrandResource
+     * @return JsonResponse|BrandResource
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
-    public function store(CreateBrandRequest $request): BrandResource
+    public function store(CreateBrandRequest $request): JsonResponse|BrandResource
     {
         $validatedDataRequest = $request->validated();
         $brand = Brand::create($validatedDataRequest);
@@ -61,11 +61,16 @@ class BrandController extends Controller
      *
      * @param UpdateBrandRequest $request
      * @param Brand $brand
-     * @return BrandResource
+     * @return BrandResource|JsonResponse
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
      */
-    public function update(UpdateBrandRequest $request, Brand $brand): BrandResource
+    public function update(UpdateBrandRequest $request, Brand $brand): BrandResource|JsonResponse
     {
         if ($brand->update($request->validated())) {
+            if ($request->file('logo')) {
+                $brand->addMedia($request->file('logo'))->toMediaCollection('logo');
+            }
             return new BrandResource($brand);
         }
 
@@ -76,9 +81,9 @@ class BrandController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return BrandResource
+     * @return BrandResource|JsonResponse
      */
-    public function destroy(int $id): BrandResource
+    public function destroy(int $id)
     {
         $brand = Brand::findOrFail($id);
         if ($brand->delete()) {
