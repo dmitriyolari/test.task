@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Brand\CreateBrandRequest;
 use App\Http\Requests\Brand\UpdateBrandRequest;
-use App\Http\Resources\BrandCollection;
-use App\Http\Resources\BrandResource;
+use App\Http\Resources\Brand\BrandCollection;
+use App\Http\Resources\Brand\BrandResource;
 use App\Models\Brand;
+use Illuminate\Http\JsonResponse;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 class BrandController extends Controller
 {
@@ -24,20 +27,22 @@ class BrandController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateBrandRequest $request
-     * @return string
+     * @return BrandResource
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
      */
-    public function store(CreateBrandRequest $request): string
+    public function store(CreateBrandRequest $request): BrandResource
     {
         $validatedDataRequest = $request->validated();
         $brand = Brand::create($validatedDataRequest);
         if (!$brand) {
-            return 'An error occurred. Please try again later.';
+            return response()->json(['message' => 'An error occurred. Please try again later.']);
         }
         if ($request->file('logo')) {
             $brand->addMedia($request->file('logo'))->toMediaCollection('logo');
         }
 
-        return 'Brand was successfully saved!';
+        return new BrandResource($brand);
     }
 
     /**
@@ -56,30 +61,44 @@ class BrandController extends Controller
      *
      * @param UpdateBrandRequest $request
      * @param Brand $brand
-     * @return string
+     * @return BrandResource
      */
-    public function update(UpdateBrandRequest $request, Brand $brand): string
+    public function update(UpdateBrandRequest $request, Brand $brand): BrandResource
     {
         if ($brand->update($request->validated())) {
-            return 'Brand was successfully modified!';
+            return new BrandResource($brand);
         }
 
-        return 'Something went wrong. Please try again.';
+        return response()->json(['message' => 'Something went wrong. Please try again.']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return string
+     * @return BrandResource
      */
-    public function destroy(int $id): string
+    public function destroy(int $id): BrandResource
     {
         $brand = Brand::findOrFail($id);
         if ($brand->delete()) {
-            return 'Brand was successfully removed';
+            return new BrandResource($brand);
         }
 
-        return 'Something went wrong. Please try again.';
+        return response()->json(['Something went wrong. Please try again.']);
+    }
+
+    /**
+     * @param int $id
+     * @return BrandResource|JsonResponse
+     */
+    public function removeLogo(int $id): BrandResource|JsonResponse
+    {
+        $brand = Brand::findOrFail($id);
+        if ($brand->clearMediaCollection('logo')) {
+            return new BrandResource($brand);
+        }
+
+        return response()->json(['Something went wrong. Please try again.']);
     }
 }

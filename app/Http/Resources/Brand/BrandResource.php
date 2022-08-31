@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Brand;
 
+use App\Models\Brand;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -9,6 +10,13 @@ use JsonSerializable;
 
 /**
  * @property Brand $resource
+ *
+ * @property int $id
+ * @property string $title
+ * @property string $code
+ * @property int $display_on_home
+ * @property string|null $banner_title
+ * @property string|null $banner_description
  */
 class BrandResource extends JsonResource
 {
