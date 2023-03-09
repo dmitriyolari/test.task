@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 class UserRegisterService
 {
     protected Builder $builder;
-    public function register($userCredentials): User
+    public function create($userCredentials): User
     {
         $typedData = UserDTO::checkTypes($userCredentials);
         $typedData['password'] = bcrypt($typedData['password']);

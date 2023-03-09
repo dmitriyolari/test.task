@@ -25,5 +25,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('/brands', BrandController::class);
     Route::delete('/brands/{brand}/logo', [BrandController::class, 'removeLogo']);
-    Route::post('user/create', [UserController::class, 'create']);
+    Route::post('user/register', [UserController::class, 'register']);
 });
