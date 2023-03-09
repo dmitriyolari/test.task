@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('/brands', BrandController::class);
     Route::delete('/brands/{brand}/logo', [BrandController::class, 'removeLogo']);
+    Route::post('user/create', [UserController::class, 'create']);
 });
