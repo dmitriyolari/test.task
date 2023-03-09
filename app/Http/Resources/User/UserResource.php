@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\BaseResource;
 use App\Models\User;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
 
 /**
@@ -15,7 +15,7 @@ use JsonSerializable;
  * @property string $name
  * @property string $email
  */
-class UserResource extends JsonResource
+class UserResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
