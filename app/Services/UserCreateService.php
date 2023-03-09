@@ -8,7 +8,7 @@ use App\DTO\UserDTO;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 
-class UserRegisterService
+class UserCreateService
 {
     protected Builder $builder;
     public function create($userCredentials): User
