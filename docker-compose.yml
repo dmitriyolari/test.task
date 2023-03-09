@@ -6,7 +6,7 @@ services:
         user: sammy
         uid: 1000
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: ./docker/Dockerfile
     image: test_task
     container_name: test_task-app
     restart: unless-stopped
@@ -42,7 +42,7 @@ services:
       - "8000:80"
     volumes:
       - ./:/var/www
-      - ./docker-compose/nginx:/etc/nginx/conf.d
+      - ./docker/nginx:/etc/nginx/conf.d
     networks:
       - test_task
 

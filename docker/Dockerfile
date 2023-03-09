@@ -31,7 +31,7 @@ RUN mkdir -p /home/$user/.composer && \
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
-COPY ./docker-compose/xdebug.ini "${PHP_INI_DIR}/conf.d"
+COPY ./docker/xdebug.ini "${PHP_INI_DIR}/conf.d"
 
 # Set working directory
 WORKDIR /var/www
