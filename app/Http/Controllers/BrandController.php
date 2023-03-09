@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Brand\CreateBrandRequest;
@@ -83,7 +85,7 @@ class BrandController extends Controller
      * @param int $id
      * @return BrandResource|JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse|BrandResource
     {
         $brand = Brand::findOrFail($id);
         if ($brand->delete()) {
