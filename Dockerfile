@@ -28,6 +28,11 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+COPY ./docker-compose/xdebug.ini "${PHP_INI_DIR}/conf.d"
+
 # Set working directory
 WORKDIR /var/www
 
