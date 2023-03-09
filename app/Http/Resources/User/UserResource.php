@@ -11,9 +11,6 @@ use JsonSerializable;
 
 /**
  * @property User $resource
- *
- * @property string $name
- * @property string $email
  */
 class UserResource extends BaseResource
 {
@@ -26,8 +23,8 @@ class UserResource extends BaseResource
     public function toArray($request): array|JsonSerializable|Arrayable
     {
         return [
-            'name' => $this->name,
-            'email' => $this->email
+            'name' => $this->resource->name(),
+            'email' => $this->resource->email()
         ];
     }
 }
