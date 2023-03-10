@@ -15,6 +15,6 @@ class UserController extends Controller
         $validatedUser = $request->validated();
         $user = $service->create($validatedUser);
 
-        return UserResource::make($user)->withStatusCode(202);
+        return UserResource::make($user)->withStatusCode(201);
     }
 }
