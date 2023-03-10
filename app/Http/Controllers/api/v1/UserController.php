@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api\v1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserLoginRequest;
 use App\Http\Resources\StatusResource;

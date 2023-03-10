@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\api\v1\BrandController;
+use App\Http\Controllers\api\v1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,15 +22,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'v1'], function () {
-    Route::apiResource('/brands', BrandController::class);
-    Route::delete('/brands/{brand}/logo', [BrandController::class, 'removeLogo']);
+Route::group(['prefix' => 'v1/brand'], function () {
+    Route::apiResource('/', BrandController::class);
+    Route::delete('/{brand}/logo', [BrandController::class, 'removeLogo']);
 });
 
-Route::group(['prefix' => 'v1'], function () {
-    Route::post('/user/register', [UserController::class, 'register']);
-    Route::post('/user/login', [UserController::class, 'login']);
-    Route::post('/user/logout', [UserController::class, 'logout']);
+Route::group(['prefix' => 'v1/user'], function () {
+    Route::post('/register', [UserController::class, 'register']);
+    Route::post('/login', [UserController::class, 'login']);
+    Route::post('/logout', [UserController::class, 'logout']);
 });
 
 Route::group(
