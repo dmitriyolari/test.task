@@ -1,0 +1,15 @@
+{
+    "1": {
+        "name": "u1",
+        "email": "email1@email.com",
+        "password": "123",
+        "password_confirmation": "123"
+    },
+
+    "2": {
+        "name": "u1",
+        "email": "email1@email.com",
+        "password": "12",
+        "password_confirmation": "123"
+    }
+}
