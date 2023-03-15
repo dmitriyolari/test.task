@@ -40,4 +40,5 @@ Route::group(
     ],
     function () {
         Route::get('/user/info', [UserController::class, 'info']);
-});
+        Route::get('/user/all', [UserController::class, 'showAllUsersList']);
+    });

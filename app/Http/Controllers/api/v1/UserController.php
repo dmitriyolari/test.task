@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserLoginRequest;
 use App\Http\Resources\StatusResource;
+use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use App\Services\UserCreateService;
@@ -40,6 +41,11 @@ class UserController extends Controller
     public function info(): User|Authenticatable|null
     {
         return Auth::user();
+    }
+
+    public function showAllUsersList(): UserCollection
+    {
+        return new UserCollection(User::all());
     }
 
     public function logout(): UserResource|StatusResource|Response
