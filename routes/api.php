@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\api\v1\BrandController;
+use App\Http\Controllers\api\v1\FollowingListController;
 use App\Http\Controllers\api\v1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,18 @@ Route::group(
         'middleware' => 'auth:sanctum'
     ],
     function () {
-        Route::get('/user/info', [UserController::class, 'info']);
+        Route::get('/user/info', [UserController::class, 'showCurrentUserInfo']);
         Route::get('/user/all', [UserController::class, 'showAllUsersList']);
-    });
+    }
+);
+
+Route::group(
+    [
+        'prefix' => 'v1/user/friend',
+        'middleware' => 'auth:sanctum'
+    ],
+    function () {
+        Route::post('/{user}/add', [FollowingListController::class, 'addUserToFollowingList']);
+        Route::post('/{user}/remove', [FollowingListController::class, 'removeUserFromFollowingList']);
+    }
+);
