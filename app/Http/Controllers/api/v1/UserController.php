@@ -11,8 +11,8 @@ use App\Http\Resources\StatusResource;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
+use App\Services\CurrentUserShowInfoService;
 use App\Services\UserCreateService;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,9 +38,9 @@ class UserController extends Controller
         return response(StatusResource::make(false), 422);
     }
 
-    public function info(): User|Authenticatable|null
+    public function showCurrentUserInfo(CurrentUserShowInfoService $service): User
     {
-        return Auth::user();
+        return $service->show();
     }
 
     public function showAllUsersList(): UserCollection
