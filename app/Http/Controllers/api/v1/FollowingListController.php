@@ -21,7 +21,7 @@ class FollowingListController extends Controller
     ): Collection|Response|User {
         $currentUserOrFailedResponse = $service->add($user);
         if ($currentUserOrFailedResponse instanceof User) {
-            return $currentUserShowInfoService->show();
+            return $currentUserShowInfoService->show($currentUserOrFailedResponse->id());
         }
 
         return $currentUserOrFailedResponse;
@@ -34,7 +34,7 @@ class FollowingListController extends Controller
     ): Collection|Response|User {
         $currentUserOrFailedResponse = $service->remove($user);
         if ($currentUserOrFailedResponse instanceof User) {
-            return $currentUserShowInfoService->show();
+            return $currentUserShowInfoService->show($currentUserOrFailedResponse->id());
         }
 
         return $currentUserOrFailedResponse;
