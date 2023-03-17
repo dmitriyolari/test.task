@@ -23,6 +23,7 @@ class UserResource extends BaseResource
     public function toArray($request): array|JsonSerializable|Arrayable
     {
         return [
+            'id' => $this->resource->id(),
             'name' => $this->resource->name(),
             'email' => $this->resource->email()
         ];
